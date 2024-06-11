@@ -65,7 +65,7 @@ with open('clusters.json', 'w') as f:
 
 print("Clusters have been saved to clusters.json")
 
-gemini_key = "AIzaSyCRFzQ9xhzII7QMEVqeQcfIp_Upx6hHYEo"
+gemini_key = ""
 genai.configure(api_key=gemini_key)
 
 # Function to generate title and description for the cluster using the Google Gemini API
