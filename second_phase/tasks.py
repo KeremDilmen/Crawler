@@ -7,7 +7,7 @@ headers = {
     "Content-Type": "application/json"
 }
 
-@app.task
+@app.task(name='tasks.fetch_companies')
 def fetch_companies(page):
     corporates_query = """
     query Corporates($filters: CorporateFilters, $page: Int) {
@@ -42,7 +42,7 @@ def fetch_companies(page):
         return None
     return response_json["data"]["corporates"]
 
-@app.task
+@app.task(name='tasks.fetch_all_companies')
 def fetch_all_companies():
     all_companies = []
     page = 1
@@ -56,7 +56,7 @@ def fetch_all_companies():
         page += 1
     return all_companies
 
-@app.task
+@app.task(name='tasks.fetch_enterprise_details')
 def fetch_enterprise_details(enterprise_id):
     payload_detail = {
         "variables": {"id": enterprise_id},
@@ -94,13 +94,13 @@ def fetch_enterprise_details(enterprise_id):
         print("Response:", data_detail)
         return None
 
-@app.task
+@app.task(name='tasks.save_to_json')
 def save_to_json(enterprise_details):
     with open('all_company_details.json', 'w') as json_file:
         json.dump(enterprise_details, json_file, indent=4)
     return "Data saved to enterprise_details.json"
 
-@app.task
+@app.task(name='tasks.run_analysis')
 def run_analysis():
     import cluster
     return "Analysis complete"

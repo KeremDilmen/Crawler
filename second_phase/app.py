@@ -1,9 +1,8 @@
 from fastapi import FastAPI, BackgroundTasks, HTTPException
-from celery import group
+from celery import group, states
 from celery.result import AsyncResult
 from celery_config import app as celery_app
 from tasks import fetch_all_companies, fetch_enterprise_details, save_to_json, run_analysis
-import celery.states as states
 import json
 import logging
 
@@ -68,3 +67,4 @@ def get_result():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
